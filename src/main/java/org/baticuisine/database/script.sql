@@ -16,7 +16,10 @@ CREATE TABLE quote (
     estimated_amount DOUBLE PRECISION NOT NULL,
     issue_date DATE NOT NULL,
     validity_date DATE NOT NULL,
-    is_accepted BOOLEAN
+    is_accepted BOOLEAN,
+    project_id INTEGER,
+    FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE,
+
 );
 
 -- Create Project table
@@ -25,10 +28,8 @@ CREATE TABLE project (
     project_name VARCHAR(255) NOT NULL,
     profit_margin DOUBLE PRECISION,
     total_cost DOUBLE PRECISION,
-    status STATUS NOT NULL,
-    quote_id INTEGER,
+    status STATUS NOT NULL DEFAULT 'INPROGRESS',
     client_id INTEGER,
-    FOREIGN KEY (quote_id) REFERENCES quote(id) ON DELETE CASCADE,
     FOREIGN KEY (client_id) REFERENCES client(id) ON DELETE CASCADE
 );
 
