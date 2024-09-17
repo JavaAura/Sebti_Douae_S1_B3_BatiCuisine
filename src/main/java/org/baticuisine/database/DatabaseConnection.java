@@ -5,25 +5,25 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
+
     private static DatabaseConnection instance;
     private Connection connection;
-    private String url = "jdbc:postgresql://localhost:5432/your_database_name";
-    private String username = "your_username";
-    private String password = "your_password";
 
-    private DatabaseConnection() throws SQLException {
+    private static final String URL = "jdbc:postgresql://localhost:5432/baticuisine";
+    private static final String USER = "postgres";
+    private static final String PASSWORD = "password";
+
+    private DatabaseConnection() {
         try {
-            Class.forName("org.postgresql.Driver");  // Ensure the driver is loaded
-            this.connection = DriverManager.getConnection(url, username, password);
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new SQLException("Failed to connect to the database", e);
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public static DatabaseConnection getInstance() throws SQLException {
+
+    public static synchronized DatabaseConnection getInstance() {
         if (instance == null) {
-            instance = new DatabaseConnection();
-        } else if (instance.getConnection().isClosed()) {
             instance = new DatabaseConnection();
         }
         return instance;

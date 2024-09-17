@@ -13,12 +13,8 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     private Connection conn;
 
-    public ClientRepositoryImpl() {
-        try {
-            this.conn = DatabaseConnection.getInstance().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to connect to the database.", e);
-        }
+    public ClientRepositoryImpl() throws SQLException {
+        this.conn = DatabaseConnection.getInstance().getConnection();
     }
 
     @Override
