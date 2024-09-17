@@ -54,4 +54,28 @@ public class ClientRepositoryImpl implements ClientRepository {
 
         return client;
     }
+
+    @Override
+    public Client searchClientByName(String name) {
+        String sql = "SELECT * FROM client WHERE name = ?";
+        Client client = null;
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                client = new Client();
+                client.setId(rs.getInt("id"));
+                client.setName(rs.getString("name"));
+                client.setAddress(rs.getString("address"));
+                client.setPhoneNumber(rs.getString("phone_number"));
+                client.setProfessional(rs.getBoolean("is_professional"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return client;
+    }
 }
