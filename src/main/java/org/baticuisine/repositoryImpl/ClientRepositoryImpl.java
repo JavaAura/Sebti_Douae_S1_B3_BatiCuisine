@@ -13,7 +13,7 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     private Connection conn;
 
-    public ClientRepositoryImpl() throws SQLException {
+    public ClientRepositoryImpl() {
         this.conn = DatabaseConnection.getInstance().getConnection();
     }
 
