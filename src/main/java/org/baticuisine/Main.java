@@ -15,6 +15,6 @@ public class Main {
         System.out.println("Hello world!");
       //  Connection conn =   DatabaseConnection.getInstance().getConnection();
         ProjectRepositoryImpl projectrep = new ProjectRepositoryImpl();
-        projectrep.getAllProjects();
+        projectrep.getProjectById(2);
     }
 }

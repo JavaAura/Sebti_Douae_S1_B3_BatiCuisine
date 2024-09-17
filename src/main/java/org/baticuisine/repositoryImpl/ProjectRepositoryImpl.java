@@ -65,6 +65,38 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         }
         return projects;
     }
+
+    @Override
+    public Project getProjectById(int projectId) {
+        String sql = "SELECT p.id, p.project_name, p.profit_margin, p.total_cost, p.status, p.client_id, c.name AS client_name " +
+                "FROM project p " +
+                "JOIN client c ON p.client_id = c.id " +
+                "WHERE p.id = ?";
+        Project project = null;
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, projectId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                project = new Project();
+                project.setId(rs.getInt("id"));
+                project.setProjectName(rs.getString("project_name"));
+                project.setProfitMargin(rs.getDouble("profit_margin"));
+                project.setTotalCost(rs.getDouble("total_cost"));
+                project.setStatus(Status.valueOf(rs.getString("status")));
+
+                Client client = new Client();
+                client.setId(rs.getInt("client_id"));
+                client.setName(rs.getString("client_name"));
+                project.setClient(client);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching project: " + e.getMessage());
+        }
+        System.out.println(project.getProjectName());
+        return project;
+    }
 }
 
 
