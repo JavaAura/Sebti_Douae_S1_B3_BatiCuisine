@@ -9,11 +9,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class QuoteRepositroyImpl implements QuoteRepository {
+public class QuoteRepositoryImpl implements QuoteRepository {
 
     private Connection conn;
 
-    public QuoteRepositroyImpl() {
+    public QuoteRepositoryImpl() {
         this.conn = DatabaseConnection.getInstance().getConnection();
     }
 
