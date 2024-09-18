@@ -13,8 +13,8 @@ public class Client {
     public Client() {
     }
 
-    public Client(int id, String name, String address, String phoneNumber, Boolean isProfessional) {
-        this.id = id;
+    public Client( String name, String address, String phoneNumber, Boolean isProfessional) {
+        //this.id = id;
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
