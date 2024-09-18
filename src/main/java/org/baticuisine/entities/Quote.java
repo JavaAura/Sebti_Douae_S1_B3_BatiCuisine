@@ -66,4 +66,8 @@ public class Quote {
     public Project getProject() {
         return project;
     }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 }
