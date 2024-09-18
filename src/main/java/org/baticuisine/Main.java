@@ -2,8 +2,10 @@ package org.baticuisine;
 
 import org.baticuisine.database.DatabaseConnection;
 import org.baticuisine.entities.Client;
+import org.baticuisine.entities.Material;
 import org.baticuisine.entities.Project;
 import org.baticuisine.repositoryImpl.ClientRepositoryImpl;
+import org.baticuisine.repositoryImpl.MaterialRepositoryImpl;
 import org.baticuisine.repositoryImpl.ProjectRepositoryImpl;
 
 import java.sql.Connection;
@@ -14,7 +16,7 @@ public class Main {
 
         System.out.println("Hello world!");
       //  Connection conn =   DatabaseConnection.getInstance().getConnection();
-        ProjectRepositoryImpl projectrep = new ProjectRepositoryImpl();
-        projectrep.getProjectById(2);
+
+
     }
 }

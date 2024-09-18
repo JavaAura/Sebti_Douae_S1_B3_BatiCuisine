@@ -59,3 +59,5 @@ CREATE TABLE labor (
     worker_productivity DOUBLE PRECISION
 ) INHERITS (component);  -- Inherit from Component
 
+ALTER TABLE material ALTER COLUMN component_type SET DEFAULT 'Material';
+ALTER TABLE labor ALTER COLUMN component_type SET DEFAULT 'Labor';

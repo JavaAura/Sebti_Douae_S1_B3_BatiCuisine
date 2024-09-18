@@ -1,4 +1,8 @@
 package org.baticuisine.repository;
 
-public interface ComponentRepository {
+import org.baticuisine.entities.Component;
+
+public interface ComponentRepository<T> {
+
+    void addComponent(T t);
 }
