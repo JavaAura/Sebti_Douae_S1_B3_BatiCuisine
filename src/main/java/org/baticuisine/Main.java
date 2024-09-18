@@ -2,16 +2,16 @@ package org.baticuisine;
 
 
 import org.baticuisine.presentation.ClientUI;
-import org.baticuisine.presentation.LaborUI;
+import org.baticuisine.presentation.ConsoleUI;
 
 public class Main {
     public static void main(String[] args)  {
 
         System.out.println("Hello world!");
       //  Connection conn =   DatabaseConnection.getInstance().getConnection();
-        LaborUI laborUI = new LaborUI();
+        ConsoleUI consoleUI = new ConsoleUI();
 
-        laborUI.ajouterMainDOeuvre();
+        consoleUI.start();
 
     }
 }

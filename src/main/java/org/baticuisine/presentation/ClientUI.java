@@ -55,7 +55,7 @@ public class ClientUI {
         } else {
             System.out.println(ConsoleColors.RED + "Client non trouvé." + ConsoleColors.RESET);
             System.out.println("-------------------------------");
-            rechercherOuAjouterClient();
+            return rechercherOuAjouterClient();
         }
         return null;
     }
