@@ -53,10 +53,9 @@ public class ConsoleUI {
 
         if (client != null) {
             Project projet = projectUI.creerNouveauProjet(client);
-            System.out.println("Project: " + projet); // Debugging statement to check if project is null
 
-            List<Material> materials = materialUI.ajouterMateriaux();
-            List<Labor> labor = laborUI.ajouterMainDOeuvre();
+            List<Material> materials = materialUI.ajouterMateriaux(projet);
+            List<Labor> labor = laborUI.ajouterMainDOeuvre(projet);
 
             List<Component> allComponents = new ArrayList<>();
             allComponents.addAll(materials);

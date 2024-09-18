@@ -25,8 +25,8 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         String sql = "INSERT INTO project (project_name, profit_margin, total_cost, client_id) VALUES (?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, project.getProjectName());
-            pstmt.setDouble(2, project.getProfitMargin());
-            pstmt.setDouble(3, project.getTotalCost());
+            pstmt.setDouble(2, 0);
+            pstmt.setDouble(3, 0);
             //pstmt.setObject(4, project.getStatus().name(), java.sql.Types.OTHER);
             pstmt.setInt(4, project.getClient().getId());
             pstmt.executeUpdate();

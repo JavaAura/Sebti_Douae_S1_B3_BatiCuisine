@@ -23,7 +23,7 @@ public class MaterialRepositoryImpl implements ComponentRepository<Material> {
                 " VALUES (?,?,?,?,?,?,?)";
         try(PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setString(1, material.getName());
-            pstmt.setDouble(2, material.getTaxRate());
+            pstmt.setDouble(2, 0);
             pstmt.setInt(3, material.getProject().getId());
             pstmt.setDouble(4, material.getTransportCost());
             pstmt.setDouble(5, material.getQualityCoefficient());
