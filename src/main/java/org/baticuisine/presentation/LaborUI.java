@@ -18,7 +18,10 @@ public class LaborUI {
         Scanner scanner = new Scanner(System.in);
         List<Labor> mainDOeuvre = new ArrayList<>();
         boolean ajouterPlus = true;
-
+        if (project == null || project.getId() <= 0) {
+            System.out.println("Le projet associé n'est valide. Veuillez créer un projet valide avant d'ajouter de la main-d'œuvre.");
+            return mainDOeuvre;
+        }
         System.out.println("--- Ajout de la main-d'œuvre pour le projet : " + project.getProjectName() + " ---");
 
         while (ajouterPlus) {
@@ -32,17 +35,13 @@ public class LaborUI {
             double productivite = scanner.nextDouble();
             scanner.nextLine();
 
-            // Create a new Labor object and set its properties
             Labor labor = new Labor();
             labor.setName(type);
             labor.setHourlyRate(tauxHoraire);
             labor.setWorkHours(heuresTravaillees);
             labor.setWorkerProductivity(productivite);
+            labor.setProject(project);
 
-            // Associate the labor entry with the project
-            labor.setProject(project);  // Assuming Labor has a setProject method
-
-            // Add labor to the list and persist it
             mainDOeuvre.add(labor);
             laborService.addComponent(labor);
 

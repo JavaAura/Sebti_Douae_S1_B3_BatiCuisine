@@ -17,8 +17,8 @@ public class Project {
     public Project() {
     }
 
-    public Project(int id, String projectName, double profitMargin, double totalCost, Status status) {
-        this.id = id;
+    public Project( String projectName, double profitMargin, double totalCost, Status status) {
+        //this.id = id;
         this.projectName = projectName;
         this.profitMargin = profitMargin;
         this.totalCost = totalCost;

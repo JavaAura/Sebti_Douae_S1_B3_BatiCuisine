@@ -6,10 +6,7 @@ import org.baticuisine.entities.Client;
 import org.baticuisine.entities.Project;
 import org.baticuisine.repository.ProjectRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,17 +20,26 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     @Override
     public void addProject(Project project) {
         String sql = "INSERT INTO project (project_name, profit_margin, total_cost, client_id) VALUES (?,?,?,?)";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, project.getProjectName());
-            pstmt.setDouble(2, 0);
-            pstmt.setDouble(3, 0);
-            //pstmt.setObject(4, project.getStatus().name(), java.sql.Types.OTHER);
+            pstmt.setDouble(2, project.getProfitMargin());
+            pstmt.setDouble(3, project.getTotalCost());
             pstmt.setInt(4, project.getClient().getId());
-            pstmt.executeUpdate();
+
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        project.setId(generatedKeys.getInt(1));
+                    }
+                }
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+
 
     @Override
     public List<Project> getAllProjects() {

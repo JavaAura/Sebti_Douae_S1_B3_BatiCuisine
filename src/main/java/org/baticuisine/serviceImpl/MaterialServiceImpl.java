@@ -3,8 +3,9 @@ package org.baticuisine.serviceImpl;
 import org.baticuisine.entities.Material;
 import org.baticuisine.repository.ComponentRepository;
 import org.baticuisine.repositoryImpl.MaterialRepositoryImpl;
+import org.baticuisine.service.ComponentService;
 
-public class MaterialServiceImpl implements ComponentRepository<Material> {
+public class MaterialServiceImpl implements ComponentService<Material> {
 
     private ComponentRepository<Material> materialRepository;
 

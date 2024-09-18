@@ -19,6 +19,11 @@ public class MaterialUI {
         List<Material> materiaux = new ArrayList<>();
         boolean ajouterPlus = true;
 
+        if (project == null || project.getId() <= 0) {
+            System.out.println("Le projet associé n'est valide. Veuillez créer un projet valide avant d'ajouter de la main-d'œuvre.");
+            return materiaux;
+        }
+
         System.out.println("--- Ajout des matériaux pour le projet : " + project.getProjectName() + " ---");
 
         while (ajouterPlus) {
@@ -34,7 +39,6 @@ public class MaterialUI {
             double coefficientQualite = scanner.nextDouble();
             scanner.nextLine();
 
-            // Create a new material and set its properties
             Material materiau = new Material();
             materiau.setName(nom);
             materiau.setQuantity(quantite);
@@ -42,10 +46,8 @@ public class MaterialUI {
             materiau.setTransportCost(coutTransport);
             materiau.setQualityCoefficient(coefficientQualite);
 
-            // Associate the material with the project
-            materiau.setProject(project);  // Assuming Material has a setProject method
+            materiau.setProject(project);
 
-            // Add the material to the list and persist it
             materiaux.add(materiau);
             materialService.addComponent(materiau);
 

@@ -27,6 +27,7 @@ public class ProjectUI {
         projet.setClient(client);
 
         projectService.addProject(projet);
+       // System.out.println(projet.getId()+ projet.getProjectName());
         return projet;
     }
 }

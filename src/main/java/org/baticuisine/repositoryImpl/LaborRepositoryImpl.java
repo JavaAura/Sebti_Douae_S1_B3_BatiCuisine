@@ -21,6 +21,10 @@ public class LaborRepositoryImpl implements ComponentRepository<Labor> {
         String sql = "INSERT INTO labor (name, tax_rate, project_id, hourly_rate, work_hours, worker_productivity)" +
                 " VALUES (?,?,?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            if (labor.getProject() == null || labor.getProject().getId() <= 0) {
+                throw new IllegalArgumentException("Labor must be associated with a valid project.");
+            }
+
             pstmt.setString(1, labor.getName());
             pstmt.setDouble(2, labor.getTaxRate());
             pstmt.setInt(3, labor.getProject().getId());

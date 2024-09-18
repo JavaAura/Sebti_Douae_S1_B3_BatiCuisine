@@ -22,6 +22,9 @@ public class MaterialRepositoryImpl implements ComponentRepository<Material> {
         String sql = "INSERT INTO material (name, tax_rate, project_id, transport_cost, quality_coefficient, unit_cost, quantity )" +
                 " VALUES (?,?,?,?,?,?,?)";
         try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+            if (material.getProject() == null || material.getProject().getId() <= 0) {
+                throw new IllegalArgumentException("Labor must be associated with a valid project.");
+            }
             pstmt.setString(1, material.getName());
             pstmt.setDouble(2, 0);
             pstmt.setInt(3, material.getProject().getId());
