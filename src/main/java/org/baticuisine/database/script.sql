@@ -37,8 +37,6 @@ CREATE TABLE project (
 CREATE TABLE component (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    unit_cost DOUBLE PRECISION,
-    quantity DOUBLE PRECISION,
     component_type VARCHAR(50),
     tax_rate DOUBLE PRECISION,
     project_id INTEGER,
@@ -46,7 +44,8 @@ CREATE TABLE component (
 
 -- Create Material table (inherits from Component)
 CREATE TABLE material (
-
+    unit_cost DOUBLE PRECISION,
+    quantity DOUBLE PRECISION,
     transport_cost DOUBLE PRECISION,
     quality_coefficient DOUBLE PRECISION
 ) INHERITS (component);  -- Inherit from Component
