@@ -80,7 +80,13 @@ public class ClientUI {
         clientService.addClient(client);
 
         System.out.println("Client ajouté avec succès !");
-        return client;
+        System.out.print("Souhaitez-vous continuer avec ce client ? (y/n) : ");
+        String continuer = scanner.nextLine();
+
+        if (continuer.equalsIgnoreCase("y")) {
+            return client;
+        }
+        return null;
     }
 
 
