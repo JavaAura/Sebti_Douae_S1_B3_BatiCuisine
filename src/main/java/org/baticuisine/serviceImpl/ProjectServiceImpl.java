@@ -57,7 +57,7 @@ public class ProjectServiceImpl implements ProjectService {
         double totalCostBeforeMargin = calculateTotalCostBeforeMargin(project);
         double marginAmount = totalCostBeforeMargin * (profitMargin / 100);
         double totalCostAfterMargin = totalCostBeforeMargin + marginAmount;
-
+        project.setTotalCost(totalCostAfterMargin);
         projectRepository.updateProjectProfitMarginAndTotalCost(project.getId(), profitMargin, totalCostAfterMargin);
     }
 

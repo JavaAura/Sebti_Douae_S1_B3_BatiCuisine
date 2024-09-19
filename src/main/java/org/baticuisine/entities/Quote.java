@@ -8,18 +8,18 @@ public class Quote {
     private double estimatedAmount;
     private LocalDate issueDate;
     private LocalDate validityDate;
-    private boolean isAccepted;
+    private boolean isAccepted = false;
     private Project project;
 
     public Quote() {
     }
 
-    public Quote(int id, double estimatedAmount, LocalDate issueDate, LocalDate validityDate, boolean isAccepted) {
-        this.id = id;
+    public Quote( double estimatedAmount, LocalDate issueDate, LocalDate validityDate) {
+        //this.id = id;
         this.estimatedAmount = estimatedAmount;
         this.issueDate = issueDate;
         this.validityDate = validityDate;
-        this.isAccepted = isAccepted;
+
     }
 
     public int getId() {

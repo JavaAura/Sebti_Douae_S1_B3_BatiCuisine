@@ -1,17 +1,21 @@
 package org.baticuisine.presentation;
 
 import org.baticuisine.entities.*;
-import org.baticuisine.serviceImpl.ClientServiceImpl;
 import org.baticuisine.serviceImpl.ProjectServiceImpl;
+import org.baticuisine.serviceImpl.QuoteServiceImpl;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class ProjectUI {
 
     private ProjectServiceImpl projectService;
+    private QuoteServiceImpl quoteService;
 
     public ProjectUI() {
         this.projectService = new ProjectServiceImpl();
+        this.quoteService = new QuoteServiceImpl();
+
     }
 
     public Project creerNouveauProjet(Client client) {
@@ -53,6 +57,8 @@ public class ProjectUI {
         projectService.applyTaxAndProfitMargin(project, taxRate, profitMargin);
         System.out.println("TVA et marge bénéficiaire appliquées avec succès.");
         displayProjectCostDetails(project);
+        saveQuote(project);
+
     }
 
     public void displayProjectCostDetails(Project project) {
@@ -114,6 +120,39 @@ public class ProjectUI {
         } else {
             System.out.printf("Coût total final du projet : %.2f €%n", totalCostBeforeMargin);
         }
+    }
+
+    private void saveQuote(Project project) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("--- Enregistrement du Devis ---");
+        System.out.println("Entrez la date d'émission du devis (format : jj/mm/aaaa) : ");
+        String issueDateStr = scanner.nextLine();
+        LocalDate issueDate = parseDate(issueDateStr);
+
+        System.out.println("Entrez la date de validité du devis (format : jj/mm/aaaa) : ");
+        String validityDateStr = scanner.nextLine();
+        LocalDate validityDate = parseDate(validityDateStr);
+
+        double estimatedAmount = project.getTotalCost();
+
+        System.out.print("Souhaitez-vous enregistrer le devis ? (y/n) : ");
+        String confirmSave = scanner.nextLine();
+
+        if (confirmSave.equalsIgnoreCase("y")) {
+            Quote quote = new Quote(estimatedAmount, issueDate, validityDate);
+            quote.setProject(project);
+            quoteService.addQuote(quote);
+
+            System.out.println("Devis enregistré avec succès !");
+        } else {
+            System.out.println("Enregistrement du devis annulé.");
+        }
+    }
+
+    private LocalDate parseDate(String dateStr) {
+        return LocalDate.parse(dateStr, java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
 
