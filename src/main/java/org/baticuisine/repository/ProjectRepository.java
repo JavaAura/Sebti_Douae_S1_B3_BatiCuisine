@@ -12,4 +12,5 @@ public interface ProjectRepository {
 
     Project getProjectById(int projectId);
 
+    void updateProjectProfitMarginAndTotalCost(int projectId, double profitMargin, double totalCost);
 }

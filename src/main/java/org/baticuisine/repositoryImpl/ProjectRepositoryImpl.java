@@ -103,6 +103,21 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         System.out.println(project.getProjectName());
         return project;
     }
+
+    @Override
+    public void updateProjectProfitMarginAndTotalCost(int projectId, double profitMargin, double totalCost) {
+        String sql = "UPDATE Project SET profit_margin = ?, total_cost = ? WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setDouble(1, profitMargin);
+            stmt.setDouble(2, totalCost);
+            stmt.setInt(3, projectId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
 
 

@@ -7,6 +7,7 @@ import org.baticuisine.repository.ComponentRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class MaterialRepositoryImpl implements ComponentRepository<Material> {
@@ -20,7 +21,7 @@ public class MaterialRepositoryImpl implements ComponentRepository<Material> {
     @Override
     public void addComponent(Material material){
         String sql = "INSERT INTO material (name, tax_rate, project_id, transport_cost, quality_coefficient, unit_cost, quantity )" +
-                " VALUES (?,?,?,?,?,?,?)";
+                " VALUES (?,?,?,?,?,?,?) RETURNING id";
         try(PreparedStatement pstmt = conn.prepareStatement(sql)){
             if (material.getProject() == null || material.getProject().getId() <= 0) {
                 throw new IllegalArgumentException("Labor must be associated with a valid project.");
@@ -32,9 +33,28 @@ public class MaterialRepositoryImpl implements ComponentRepository<Material> {
             pstmt.setDouble(5, material.getQualityCoefficient());
             pstmt.setDouble(6, material.getUnitCost());
             pstmt.setDouble(7, material.getQuantity());
-            pstmt.executeUpdate();
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int generatedId = rs.getInt(1);
+                material.setId(generatedId);
+                System.out.println("Inserted Material with ID: " + generatedId);
+            }
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
     }
+
+    @Override
+    public void updateComponentTaxRate(int id, double taxRate) {
+        String sql = "UPDATE material SET tax_rate = ? WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setDouble(1, taxRate);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

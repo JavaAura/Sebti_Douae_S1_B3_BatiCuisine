@@ -11,4 +11,8 @@ public interface ProjectService {
     List<Project> getAllProjects();
 
     Project getProjectById(int projectId);
+
+    void applyTaxAndProfitMargin(Project project, double taxRate, double profitMargin);
+
+    double calculateTotalCostBeforeMargin(Project project);
 }

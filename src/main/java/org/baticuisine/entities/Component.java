@@ -16,6 +16,14 @@ public abstract class Component {
         this.taxRate = taxRate;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     // Getters and Setters
     public String getName() {
         return name;

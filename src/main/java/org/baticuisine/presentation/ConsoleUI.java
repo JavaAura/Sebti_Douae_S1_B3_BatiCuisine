@@ -65,6 +65,8 @@ public class ConsoleUI {
 
 
             System.out.println("Projet créé avec succès !");
+            projectUI.calculerCoutTotalProjet(projet);
+
         } else {
             System.out.println("Échec de la création du projet.");
         }
