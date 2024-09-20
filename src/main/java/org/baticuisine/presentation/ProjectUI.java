@@ -5,6 +5,7 @@ import org.baticuisine.serviceImpl.ProjectServiceImpl;
 import org.baticuisine.serviceImpl.QuoteServiceImpl;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 public class ProjectUI {
@@ -155,6 +156,67 @@ public class ProjectUI {
         return LocalDate.parse(dateStr, java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
+    public void displayAllProjects() {
+        List<Project> projects = projectService.getAllProjects();
+
+        if (projects.isEmpty()) {
+            System.out.println("Aucun projet trouvé.");
+        } else {
+            for (Project project : projects) {
+                displayProjectDetails(project);
+            }
+        }
+    }
+
+    private void displayProjectDetails(Project project) {
+        System.out.println("--- Détails du Projet ---");
+        System.out.println("Nom du projet : " + project.getProjectName());
+        System.out.println("Statut du projet : " + project.getStatus());
+        System.out.println("Marge de profit : " + project.getProfitMargin());
+
+        Client client = project.getClient();
+        if (client != null) {
+            System.out.println("Client : " + client.getName());
+            System.out.println("Adresse du client : " + client.getAddress());
+            System.out.println("Numéro de téléphone : " + client.getPhoneNumber());
+            System.out.println("Professionnel : " + (client.getProfessional() ? "Oui" : "Non"));
+        } else {
+            System.out.println("Client : Inconnu");
+        }
+
+        List<Component> components = project.getComponents();
+        if (components != null && !components.isEmpty()) {
+            System.out.println(" -- Composants du projet : -- ");
+            System.out.println(" - Matériaux : ");
+            for (Component component : components) {
+                if (component instanceof Material) {
+                    System.out.println("   Type : Material ");
+                    System.out.println("   Nom : " + component.getName());
+                    System.out.println("   Coût Unitaire : " + ((Material) component).getUnitCost());
+                    System.out.println("   Quantité : " + ((Material) component).getQuantity());
+
+                    System.out.println("   Coût de transport : " + ((Material) component).getTransportCost());
+                    System.out.println("   Coefficient de qualité : " + ((Material) component).getQualityCoefficient());
+                }
+            }
+            System.out.println(" - Main d'oeuvre : ");
+            for (Component component : components) {
+                if (component instanceof Labor) {
+                    System.out.println("   Type : Labor ");
+                    System.out.println("   Nom : " + component.getName());
+                    System.out.println("   Taux horaire : " + ((Labor) component).getHourlyRate());
+                    System.out.println("   Heures travaillées : " + ((Labor) component).getWorkHours());
+
+                    System.out.println("   Productivité du travailleur : " + ((Labor) component).getWorkerProductivity());
+                }
+            }
+        } else {
+            System.out.println("Aucun composant pour ce projet.");
+        }
+
+        System.out.println("Coût total estimé : " + project.getTotalCost() + " €");
+        System.out.println("-------------------------------");
+    }
 
 
 }

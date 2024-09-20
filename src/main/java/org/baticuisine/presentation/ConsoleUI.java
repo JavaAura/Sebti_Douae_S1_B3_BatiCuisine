@@ -74,6 +74,7 @@ public class ConsoleUI {
 
 
     private void afficherProjetsExistants() {
+        projectUI.displayAllProjects();
     }
 
     private void calculerCoutProjet() {
