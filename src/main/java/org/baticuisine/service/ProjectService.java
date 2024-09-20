@@ -14,5 +14,5 @@ public interface ProjectService {
 
     void applyTaxAndProfitMargin(Project project, double taxRate, double profitMargin);
 
-    double calculateTotalCostBeforeMargin(Project project);
+   // double calculateTotalCostBeforeMargin(Project project);
 }

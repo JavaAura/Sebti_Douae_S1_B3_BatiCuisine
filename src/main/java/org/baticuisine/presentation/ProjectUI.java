@@ -79,7 +79,7 @@ public class ProjectUI {
         for (Component component : project.getComponents()) {
             if (component instanceof Material) {
                 Material material = (Material) component;
-                double costBeforeTax = material.getUnitCost() * material.getQuantity();
+                double costBeforeTax = material.getUnitCost() * material.getQuantity() * material.getQualityCoefficient() + material.getTransportCost();
                 double costAfterTax = costBeforeTax + (costBeforeTax * (material.getTaxRate() / 100));
                 totalMaterialCostBeforeTax += costBeforeTax;
                 totalMaterialCostAfterTax += costAfterTax;
@@ -98,7 +98,7 @@ public class ProjectUI {
         for (Component component : project.getComponents()) {
             if (component instanceof Labor) {
                 Labor labor = (Labor) component;
-                double costBeforeTax = labor.getHourlyRate() * labor.getWorkHours();
+                double costBeforeTax = labor.getHourlyRate() * labor.getWorkHours() * labor.getWorkerProductivity();
                 double costAfterTax = costBeforeTax + (costBeforeTax * (labor.getTaxRate() / 100));
                 totalLaborCostBeforeTax += costBeforeTax;
                 totalLaborCostAfterTax += costAfterTax;

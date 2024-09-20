@@ -40,43 +40,44 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
 @Override
-    public void applyTaxAndProfitMargin(Project project, double taxRate, double profitMargin) {
-        for (Component component : project.getComponents()) {
-            if (component instanceof Material) {
-                Material material = (Material) component;
-                material.setTaxRate(taxRate);
-                materialRepository.updateComponentTaxRate(material.getId(), taxRate);
-            } else if (component instanceof Labor) {
-                Labor labor = (Labor) component;
-                labor.setTaxRate(taxRate);
-                laborRepository.updateComponentTaxRate(labor.getId(), taxRate);
-            }
-        }
-        project.setProfitMargin(profitMargin);
+public void applyTaxAndProfitMargin(Project project, double taxRate, double profitMargin) {
+    double totalMaterialCostAfterTax = 0;
+    double totalLaborCostAfterTax = 0;
 
-        double totalCostBeforeMargin = calculateTotalCostBeforeMargin(project);
-        double marginAmount = totalCostBeforeMargin * (profitMargin / 100);
-        double totalCostAfterMargin = totalCostBeforeMargin + marginAmount;
-        project.setTotalCost(totalCostAfterMargin);
-        projectRepository.updateProjectProfitMarginAndTotalCost(project.getId(), profitMargin, totalCostAfterMargin);
+    for (Component component : project.getComponents()) {
+        if (component instanceof Material) {
+            Material material = (Material) component;
+            material.setTaxRate(taxRate);
+
+            double costBeforeTax = material.getUnitCost() * material.getQuantity() * material.getQualityCoefficient() + material.getTransportCost();
+            double costAfterTax = costBeforeTax + (costBeforeTax * (taxRate / 100));
+
+            totalMaterialCostAfterTax += costAfterTax;
+
+            materialRepository.updateComponentTaxRate(material.getId(), taxRate);
+
+        } else if (component instanceof Labor) {
+            Labor labor = (Labor) component;
+            labor.setTaxRate(taxRate);
+
+            double costBeforeTax = labor.getHourlyRate() * labor.getWorkHours() * labor.getWorkerProductivity();
+            double costAfterTax = costBeforeTax + (costBeforeTax * (taxRate / 100));
+
+            totalLaborCostAfterTax += costAfterTax;
+
+            laborRepository.updateComponentTaxRate(labor.getId(), taxRate);
+        }
     }
 
-    @Override
-    public double calculateTotalCostBeforeMargin(Project project) {
-        double totalMaterialCost = 0;
-        double totalLaborCost = 0;
+    double totalCostBeforeMargin = totalMaterialCostAfterTax + totalLaborCostAfterTax;
 
-        for (Component component : project.getComponents()) {
-            if (component instanceof Material) {
-                Material material = (Material) component;
-                totalMaterialCost += material.getUnitCost() * material.getQuantity();
-            } else if (component instanceof Labor) {
-                Labor labor = (Labor) component;
-                totalLaborCost += labor.getHourlyRate() * labor.getWorkHours();
-            }
-        }
+    double marginAmount = totalCostBeforeMargin * (profitMargin / 100);
+    double totalCostAfterMargin = totalCostBeforeMargin + marginAmount;
 
-        return totalMaterialCost + totalLaborCost;
-    }
+    project.setProfitMargin(profitMargin);
+    project.setTotalCost(totalCostAfterMargin);
+
+    projectRepository.updateProjectProfitMarginAndTotalCost(project.getId(), profitMargin, totalCostAfterMargin);
+}
 
 }
