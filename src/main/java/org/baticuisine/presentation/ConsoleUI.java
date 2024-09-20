@@ -78,5 +78,9 @@ public class ConsoleUI {
     }
 
     private void calculerCoutProjet() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Entrer l'id du projet que vous voulez calculer le cout total");
+        int id = scanner.nextInt();
+        projectUI.projectTotalCost(id);
     }
 }

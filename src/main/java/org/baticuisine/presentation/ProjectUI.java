@@ -218,5 +218,14 @@ public class ProjectUI {
         System.out.println("-------------------------------");
     }
 
+    public void projectTotalCost(int id){
+        Project project = projectService.getProjectById(id);
+        if (project == null){
+            System.out.println("Projet n'existe pas");
+        }else{
+            displayProjectCostDetails(project);
+        }
+    }
+
 
 }
