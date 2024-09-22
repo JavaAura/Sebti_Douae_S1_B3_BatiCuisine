@@ -3,6 +3,7 @@ package org.baticuisine.presentation;
 import org.baticuisine.entities.*;
 import org.baticuisine.serviceImpl.ProjectServiceImpl;
 import org.baticuisine.serviceImpl.QuoteServiceImpl;
+import org.baticuisine.util.InputValidator;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -37,19 +38,20 @@ public class ProjectUI {
     public void calculerCoutTotalProjet(Project project) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("--- Calcul du coût total ---");
-        System.out.println("Souhaitez-vous appliquer une TVA au projet ? (y/n) : ");
-        String applyTax = scanner.nextLine();
+
+        boolean applyTax = InputValidator.getValidYesNo("Souhaitez-vous appliquer une TVA au projet ?");
         double taxRate = 0;
-        if (applyTax.equalsIgnoreCase("y")) {
-            System.out.println("Entrez le pourcentage de TVA (%) : ");
+
+        if (applyTax) {
+            System.out.print("Entrez le pourcentage de TVA (%) : ");
             taxRate = scanner.nextDouble();
             scanner.nextLine();
         }
 
-        System.out.println("Souhaitez-vous appliquer une marge bénéficiaire au projet ? (y/n) : ");
-        String applyMargin = scanner.nextLine();
+        boolean applyMargin = InputValidator.getValidYesNo("Souhaitez-vous appliquer une marge bénéficiaire au projet ?");
         double profitMargin = 0;
-        if (applyMargin.equalsIgnoreCase("y")) {
+
+        if (applyMargin) {
             System.out.println("Entrez le pourcentage de marge bénéficiaire (%) : ");
             profitMargin = scanner.nextDouble();
             scanner.nextLine();
@@ -141,10 +143,9 @@ public class ProjectUI {
 
         double estimatedAmount = project.getTotalCost();
 
-        System.out.print("Souhaitez-vous enregistrer le devis ? (y/n) : ");
-        String confirmSave = scanner.nextLine();
+        boolean confirmSave = InputValidator.getValidYesNo("Souhaitez-vous enregistrer le devis ?");
 
-        if (confirmSave.equalsIgnoreCase("y")) {
+        if (confirmSave) {
             Quote quote = new Quote(estimatedAmount, issueDate, validityDate);
             quote.setProject(project);
             quoteService.addQuote(quote);

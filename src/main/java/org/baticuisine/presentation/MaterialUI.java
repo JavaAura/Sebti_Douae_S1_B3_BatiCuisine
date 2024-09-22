@@ -50,10 +50,9 @@ public class MaterialUI {
             materialService.addComponent(materiau);
 
             System.out.println("Matériau ajouté avec succès !");
-            System.out.print("Voulez-vous ajouter un autre matériau ? (y/n) : ");
-            String continuer = scanner.nextLine();
 
-            ajouterPlus = continuer.equalsIgnoreCase("y");
+            ajouterPlus = InputValidator.getValidYesNo("Voulez-vous ajouter un autre matériau ?");
+
         }
 
         return materiaux;

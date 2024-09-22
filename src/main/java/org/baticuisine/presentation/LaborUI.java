@@ -3,6 +3,7 @@ package org.baticuisine.presentation;
 import org.baticuisine.entities.Labor;
 import org.baticuisine.entities.Project;
 import org.baticuisine.serviceImpl.LaborServiceImpl;
+import org.baticuisine.util.InputValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,10 +47,9 @@ public class LaborUI {
             laborService.addComponent(labor);
 
             System.out.println("Main-d'œuvre ajoutée avec succès !");
-            System.out.print("Voulez-vous ajouter un autre type de main-d'œuvre ? (y/n) : ");
-            String continuer = scanner.nextLine();
 
-            ajouterPlus = continuer.equalsIgnoreCase("y");
+            ajouterPlus = InputValidator.getValidYesNo("Voulez-vous ajouter un autre type de main-d'œuvre ?");
+
         }
 
         return mainDOeuvre;

@@ -75,5 +75,20 @@ public class InputValidator {
         return getValidInput(prompt,InputValidator::isValidCoeff);
     }
 
+    public static boolean getValidYesNo(String prompt) {
+        while (true) {
+            System.out.print(prompt + " (y/n): ");
+            String input = scanner.nextLine().trim().toLowerCase();
+
+            if (input.equals("y")) {
+                return true;
+            } else if (input.equals("n")) {
+                return false;
+            } else {
+                System.out.println("Veuillez entrer 'y' pour oui ou 'n' pour non.");
+            }
+        }
+    }
+
 
 }

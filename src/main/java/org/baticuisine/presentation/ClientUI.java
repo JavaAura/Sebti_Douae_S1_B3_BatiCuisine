@@ -38,33 +38,34 @@ public class ClientUI {
         }
     }
 
-    private Client rechercherClient() {
-        Scanner scanner = new Scanner(System.in);
+        private Client rechercherClient() {
+            Scanner scanner = new Scanner(System.in);
 
-        System.out.println(ConsoleColors.BOLD_CYAN + "--- Recherche de client existant ---" + ConsoleColors.RESET);
-        System.out.print("Entrez le nom du client : ");
-        String nom = scanner.nextLine();
+            System.out.println(ConsoleColors.BOLD_CYAN + "--- Recherche de client existant ---" + ConsoleColors.RESET);
+            System.out.print("Entrez le nom du client : ");
+            String nom = scanner.nextLine();
 
-        Client client = clientService.searchClientByName(nom);
+            Client client = clientService.searchClientByName(nom);
 
-        if (client != null) {
-            System.out.println(ConsoleColors.GREEN + "Client trouvé !" + ConsoleColors.RESET);
-            System.out.println("Nom : " + client.getName());
-            System.out.println("Adresse : " + client.getAddress());
-            System.out.println("Numéro de téléphone : " + client.getPhoneNumber());
-            System.out.print("Souhaitez-vous continuer avec ce client ? (y/n) : ");
-            String continuer = scanner.nextLine();
+            if (client != null) {
+                System.out.println(ConsoleColors.GREEN + "Client trouvé !" + ConsoleColors.RESET);
+                System.out.println("Nom : " + client.getName());
+                System.out.println("Adresse : " + client.getAddress());
+                System.out.println("Numéro de téléphone : " + client.getPhoneNumber());
 
-            if (continuer.equalsIgnoreCase("y")) {
-                return client;
+                boolean continuer = InputValidator.getValidYesNo("Souhaitez-vous continuer avec ce client ?");
+
+                if (continuer) {
+                    return client;
+                }
+
+            } else {
+                System.out.println(ConsoleColors.RED + "Client non trouvé." + ConsoleColors.RESET);
+                System.out.println("-------------------------------");
+                return rechercherOuAjouterClient();
             }
-        } else {
-            System.out.println(ConsoleColors.RED + "Client non trouvé." + ConsoleColors.RESET);
-            System.out.println("-------------------------------");
-            return rechercherOuAjouterClient();
+            return null;
         }
-        return null;
-    }
 
     private Client ajouterNouveauClient() {
         Scanner scanner = new Scanner(System.in);
@@ -83,19 +84,16 @@ public class ClientUI {
         System.out.print("Entrez le numéro de téléphone du client : ");
         String telephone = scanner.nextLine();
 
-        System.out.print("Le client est-il un professionnel ? (y/n) : ");
-        String isProInput = scanner.nextLine();
-        boolean isProfessional = isProInput.equalsIgnoreCase("y");
+        boolean isProfessional = InputValidator.getValidYesNo("Le client est-il un professionnel ?");
 
         Client client = new Client(nom, adresse, telephone, isProfessional);
 
         clientService.addClient(client);
 
         System.out.println("Client ajouté avec succès !");
-        System.out.print("Souhaitez-vous continuer avec ce client ? (y/n) : ");
-        String continuer = scanner.nextLine();
+        boolean continuer = InputValidator.getValidYesNo("Souhaitez-vous continuer avec ce client ?");
 
-        if (continuer.equalsIgnoreCase("y")) {
+        if (continuer) {
             return client;
         }
         return null;
