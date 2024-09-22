@@ -3,6 +3,7 @@ package org.baticuisine.presentation;
 import org.baticuisine.entities.Material;
 import org.baticuisine.entities.Project;
 import org.baticuisine.serviceImpl.MaterialServiceImpl;
+import org.baticuisine.util.InputValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +12,11 @@ import java.util.Scanner;
 public class MaterialUI {
 
     private MaterialServiceImpl materialService;
-    public MaterialUI(){
+
+    public MaterialUI() {
         this.materialService = new MaterialServiceImpl();
     }
+
     public List<Material> ajouterMateriaux(Project project) {
         Scanner scanner = new Scanner(System.in);
         List<Material> materiaux = new ArrayList<>();
@@ -29,15 +32,10 @@ public class MaterialUI {
         while (ajouterPlus) {
             System.out.print("Entrez le nom du matériau : ");
             String nom = scanner.nextLine();
-            System.out.print("Entrez la quantité de ce matériau (en m²) : ");
-            double quantite = scanner.nextDouble();
-            System.out.print("Entrez le coût unitaire de ce matériau (€/m²) : ");
-            double coutUnitaire = scanner.nextDouble();
-            System.out.print("Entrez le coût de transport de ce matériau (€) : ");
-            double coutTransport = scanner.nextDouble();
-            System.out.print("Entrez le coefficient de qualité du matériau (1.0 = standard, > 1.0 = haute qualité) : ");
-            double coefficientQualite = scanner.nextDouble();
-            scanner.nextLine();
+            double quantite = InputValidator.getValidDouble("Entrez la quantité de ce matériau (en m²) :");
+            double coutUnitaire = InputValidator.getValidDouble("Entrez le coût unitaire de ce matériau (€/m²) : ");
+            double coutTransport = InputValidator.getValidDouble("Entrez le coût de transport de ce matériau (€) : ");
+            double coefficientQualite = Double.parseDouble(InputValidator.getValidCoeff("Entrez le coefficient de qualité du matériau (1.0 = standard, > 1.0 = haute qualité) :"));
 
             Material materiau = new Material();
             materiau.setName(nom);
