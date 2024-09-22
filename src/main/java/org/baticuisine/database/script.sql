@@ -60,3 +60,12 @@ CREATE TABLE labor (
 
 ALTER TABLE material ALTER COLUMN component_type SET DEFAULT 'Material';
 ALTER TABLE labor ALTER COLUMN component_type SET DEFAULT 'Labor';
+
+ALTER TABLE material
+ADD CONSTRAINT fk_project
+FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE;
+
+ALTER TABLE labor
+ADD CONSTRAINT fk_project
+FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE;
+
