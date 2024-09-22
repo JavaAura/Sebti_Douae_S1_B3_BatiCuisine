@@ -28,13 +28,13 @@ public class LaborUI {
         while (ajouterPlus) {
             System.out.print("Entrez le type de main-d'œuvre (e.g., Ouvrier de base, Spécialiste) : ");
             String type = scanner.nextLine();
-            System.out.print("Entrez le taux horaire de cette main-d'œuvre (€/h) : ");
-            double tauxHoraire = scanner.nextDouble();
-            System.out.print("Entrez le nombre d'heures travaillées : ");
-            double heuresTravaillees = scanner.nextDouble();
-            System.out.print("Entrez le facteur de productivité (1.0 = standard, > 1.0 = haute productivité) : ");
-            double productivite = scanner.nextDouble();
-            scanner.nextLine();
+
+            double tauxHoraire = InputValidator.getValidDouble("Entrez le taux horaire de cette main-d'œuvre (€/h) : ");
+
+            double heuresTravaillees = InputValidator.getValidDouble("Entrez le nombre d'heures travaillées : ");
+
+            double productivite = Double.parseDouble(InputValidator.getValidCoeff("Entrez le facteur de productivité (1.0 = standard, > 1.0 = haute productivité) : "));
+
 
             Labor labor = new Labor();
             labor.setName(type);
