@@ -43,18 +43,14 @@ public class ProjectUI {
         double taxRate = 0;
 
         if (applyTax) {
-            System.out.print("Entrez le pourcentage de TVA (%) : ");
-            taxRate = scanner.nextDouble();
-            scanner.nextLine();
+            taxRate = InputValidator.getValidDouble("Entrez le pourcentage de TVA (%) : ");
         }
 
         boolean applyMargin = InputValidator.getValidYesNo("Souhaitez-vous appliquer une marge bénéficiaire au projet ?");
         double profitMargin = 0;
 
         if (applyMargin) {
-            System.out.println("Entrez le pourcentage de marge bénéficiaire (%) : ");
-            profitMargin = scanner.nextDouble();
-            scanner.nextLine();
+            profitMargin = InputValidator.getValidDouble("Entrez le pourcentage de marge bénéficiaire (%) : ");
         }
 
         projectService.applyTaxAndProfitMargin(project, taxRate, profitMargin);
@@ -133,13 +129,9 @@ public class ProjectUI {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("--- Enregistrement du Devis ---");
-        System.out.println("Entrez la date d'émission du devis (format : jj/mm/aaaa) : ");
-        String issueDateStr = scanner.nextLine();
-        LocalDate issueDate = parseDate(issueDateStr);
+        LocalDate issueDate = InputValidator.getValidDate("Entrez la date d'émission du devis (format : jj/mm/aaaa) : ");
 
-        System.out.println("Entrez la date de validité du devis (format : jj/mm/aaaa) : ");
-        String validityDateStr = scanner.nextLine();
-        LocalDate validityDate = parseDate(validityDateStr);
+        LocalDate validityDate = InputValidator.getValidDateWithCheck("Entrez la date de validité du devis (format : jj/mm/aaaa) : ", issueDate);
 
         double estimatedAmount = project.getTotalCost();
 
@@ -155,10 +147,6 @@ public class ProjectUI {
         } else {
             System.out.println("Enregistrement du devis annulé.");
         }
-    }
-
-    private LocalDate parseDate(String dateStr) {
-        return LocalDate.parse(dateStr, java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     public void displayAllProjects() {

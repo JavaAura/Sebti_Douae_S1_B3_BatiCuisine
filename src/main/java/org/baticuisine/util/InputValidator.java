@@ -1,5 +1,8 @@
 package org.baticuisine.util;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class InputValidator {
@@ -88,6 +91,48 @@ public class InputValidator {
                 System.out.println("Veuillez entrer 'y' pour oui ou 'n' pour non.");
             }
         }
+    }
+
+    public static LocalDate getValidDate(String prompt) {
+        LocalDate date = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        while (date == null) {
+            System.out.print(prompt);
+            String input = scanner.nextLine();
+
+            try {
+                date = LocalDate.parse(input, formatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Date invalide. Veuillez entrer la date au format jj/mm/aaaa.");
+            } catch (Exception e) {
+                System.out.println("Entrée invalide. Veuillez réessayer.");
+            }
+        }
+        return date;
+    }
+
+    public static LocalDate getValidDateWithCheck(String prompt, LocalDate compareDate) {
+        LocalDate date = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        while (date == null) {
+            System.out.print(prompt);
+            String input = scanner.nextLine();
+
+            try {
+                date = LocalDate.parse(input, formatter);
+                if (date.isBefore(compareDate)) {
+                    System.out.println("La date de validité doit être supérieure à la date d'émission.");
+                    date = null;
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Date invalide. Veuillez entrer la date au format jj/mm/aaaa.");
+            } catch (Exception e) {
+                System.out.println("Entrée invalide. Veuillez réessayer.");
+            }
+        }
+        return date;
     }
 
 
