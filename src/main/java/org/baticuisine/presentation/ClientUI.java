@@ -16,8 +16,6 @@ public class ClientUI {
 
     public Client rechercherOuAjouterClient() {
 
-        Scanner scanner = new Scanner(System.in);
-
         System.out.println("--- Recherche de client ---");
 
         int choix;
