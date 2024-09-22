@@ -63,6 +63,9 @@ public class ProjectUI {
     }
 
     public void displayProjectCostDetails(Project project) {
+        System.out.println("Calcul du coût en cours...\n");
+
+
         System.out.println("--- Résultat du Calcul ---");
 
         System.out.println("Nom du projet : " + project.getProjectName());
@@ -84,8 +87,8 @@ public class ProjectUI {
                 totalMaterialCostBeforeTax += costBeforeTax;
                 totalMaterialCostAfterTax += costAfterTax;
                 materialTaxRate = material.getTaxRate();
-                System.out.printf("- %s : %.2f € (avant TVA : %.2f €, quantité : %.2f, coût unitaire : %.2f €/unité, transport : %.2f €)%n",
-                        material.getName(), costAfterTax, costBeforeTax, material.getQuantity(), material.getUnitCost(), material.getTransportCost());
+                System.out.printf("- %s : %.2f € (avant TVA : %.2f €, quantité : %.2f, coût unitaire : %.2f €/unité, qualité : %.1f, transport : %.2f €)%n",
+                        material.getName(), costAfterTax, costBeforeTax, material.getQuantity(), material.getUnitCost(), material.getQualityCoefficient(), material.getTransportCost());
             }
         }
         System.out.printf("Coût total des matériaux avant TVA : %.2f €%n", totalMaterialCostBeforeTax);
@@ -103,8 +106,8 @@ public class ProjectUI {
                 totalLaborCostBeforeTax += costBeforeTax;
                 totalLaborCostAfterTax += costAfterTax;
                 laborTaxRate = labor.getTaxRate();
-                System.out.printf("- %s : %.2f € (avant TVA : %.2f €, taux horaire : %.2f €/h, heures travaillées : %.2f h)%n",
-                        labor.getName(), costAfterTax, costBeforeTax, labor.getHourlyRate(), labor.getWorkHours());
+                System.out.printf("- %s : %.2f € (avant TVA : %.2f €, taux horaire : %.2f €/h, heures travaillées : %.2f h, productivité : %.1f)%n",
+                        labor.getName(), costAfterTax, costBeforeTax, labor.getHourlyRate(), labor.getWorkHours(), labor.getWorkerProductivity());
             }
         }
         System.out.printf("Coût total de la main-d'œuvre avant TVA : %.2f €%n", totalLaborCostBeforeTax);
@@ -147,6 +150,7 @@ public class ProjectUI {
             quoteService.addQuote(quote);
 
             System.out.println("Devis enregistré avec succès !");
+            System.out.println("--- Fin du projet ---");
         } else {
             System.out.println("Enregistrement du devis annulé.");
         }

@@ -2,6 +2,7 @@ package org.baticuisine.presentation;
 
 import org.baticuisine.entities.Client;
 import org.baticuisine.serviceImpl.ClientServiceImpl;
+import org.baticuisine.util.InputValidator;
 
 import java.util.Scanner;
 
@@ -18,12 +19,19 @@ public class ClientUI {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("--- Recherche de client ---");
-        System.out.println("Souhaitez-vous chercher un client existant ou en ajouter un nouveau ?");
-        System.out.println("1. Chercher un client existant");
-        System.out.println("2. Ajouter un nouveau client");
-        System.out.print("Choisissez une option : ");
-        int choix = scanner.nextInt();
-        scanner.nextLine();
+
+        int choix;
+        do {
+            System.out.println("Souhaitez-vous chercher un client existant ou en ajouter un nouveau ?");
+            System.out.println("1. Chercher un client existant");
+            System.out.println("2. Ajouter un nouveau client");
+
+            choix = InputValidator.getValidInt("Choisissez une option :");
+
+            if (choix != 1 && choix != 2) {
+                System.out.println("Option invalide. Veuillez choisir 1 ou 2.");
+            }
+        } while (choix != 1 && choix != 2);
 
         if (choix == 1) {
             return rechercherClient();
@@ -62,10 +70,16 @@ public class ClientUI {
 
     private Client ajouterNouveauClient() {
         Scanner scanner = new Scanner(System.in);
-
+        String nom;
         System.out.println("--- Ajouter un nouveau client ---");
-        System.out.print("Entrez le nom du client : ");
-        String nom = scanner.nextLine();
+        do {
+            System.out.print("Entrez le nom du client : ");
+             nom = scanner.nextLine();
+            if (!clientService.isClientNameUnique(nom)) {
+                System.out.println("Ce nom de client existe déjà. Veuillez en choisir un autre.");
+            }
+        } while (!clientService.isClientNameUnique(nom));
+
         System.out.print("Entrez l'adresse du client : ");
         String adresse = scanner.nextLine();
         System.out.print("Entrez le numéro de téléphone du client : ");

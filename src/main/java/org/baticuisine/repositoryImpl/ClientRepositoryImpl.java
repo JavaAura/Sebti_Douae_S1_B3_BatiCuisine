@@ -86,4 +86,21 @@ public class ClientRepositoryImpl implements ClientRepository {
 
         return client;
     }
+
+    @Override
+    public boolean isClientNameUnique(String name) {
+        String sql = "SELECT COUNT(*) FROM client WHERE name = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count == 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error checking client name uniqueness: " + e.getMessage());
+        }
+        return false;
+    }
+
 }

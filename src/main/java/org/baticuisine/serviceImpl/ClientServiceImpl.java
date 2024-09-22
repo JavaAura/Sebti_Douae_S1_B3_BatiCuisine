@@ -28,5 +28,11 @@ import org.baticuisine.repositoryImpl.ClientRepositoryImpl;
         public Client searchClientByName(String name) {
             return clientRepository.searchClientByName(name);
         }
+
+        @Override
+        public boolean isClientNameUnique(String name) {
+            return clientRepository.isClientNameUnique(name);
+        }
+
     }
 

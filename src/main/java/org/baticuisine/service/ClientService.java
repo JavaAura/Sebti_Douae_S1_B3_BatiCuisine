@@ -8,4 +8,6 @@ public interface ClientService {
     Client getClientById(int clientId);
 
     Client searchClientByName(String name);
+
+    boolean isClientNameUnique(String name);
 }
