@@ -3,33 +3,25 @@ package org.baticuisine.presentation;
 import org.baticuisine.entities.Client;
 import org.baticuisine.serviceImpl.ClientServiceImpl;
 import org.baticuisine.util.InputValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
+import java.util.Optional;
 
 public class ClientUI {
 
-    private ClientServiceImpl clientService;
+    private static final Logger logger = LoggerFactory.getLogger(ClientUI.class);
+    private final ClientServiceImpl clientService;
 
     public ClientUI() {
         this.clientService = new ClientServiceImpl();
     }
 
     public Client rechercherOuAjouterClient() {
-
         System.out.println("--- Recherche de client ---");
 
-        int choix;
-        do {
-            System.out.println("Souhaitez-vous chercher un client existant ou en ajouter un nouveau ?");
-            System.out.println("1. Chercher un client existant");
-            System.out.println("2. Ajouter un nouveau client");
-
-            choix = InputValidator.getValidInt("Choisissez une option :");
-
-            if (choix != 1 && choix != 2) {
-                System.out.println("Option invalide. Veuillez choisir 1 ou 2.");
-            }
-        } while (choix != 1 && choix != 2);
+        int choix = InputValidator.getValidInt("Souhaitez-vous chercher un client existant ou en ajouter un nouveau ?\n1. Chercher un client existant\n2. Ajouter un nouveau client\nChoisissez une option :");
 
         if (choix == 1) {
             return rechercherClient();
@@ -38,42 +30,38 @@ public class ClientUI {
         }
     }
 
-        private Client rechercherClient() {
-            Scanner scanner = new Scanner(System.in);
+    private Client rechercherClient() {
+        Scanner scanner = new Scanner(System.in);
 
-            System.out.println(ConsoleColors.BOLD_CYAN + "--- Recherche de client existant ---" + ConsoleColors.RESET);
-            System.out.print("Entrez le nom du client : ");
-            String nom = scanner.nextLine();
+        System.out.println(ConsoleColors.BOLD_CYAN + "--- Recherche de client existant ---" + ConsoleColors.RESET);
+        System.out.print("Entrez le nom du client : ");
+        String nom = scanner.nextLine();
 
-            Client client = clientService.searchClientByName(nom);
+        Optional<Client> clientOpt = clientService.searchClientByName(nom);
 
-            if (client != null) {
-                System.out.println(ConsoleColors.GREEN + "Client trouvé !" + ConsoleColors.RESET);
-                System.out.println("Nom : " + client.getName());
-                System.out.println("Adresse : " + client.getAddress());
-                System.out.println("Numéro de téléphone : " + client.getPhoneNumber());
+        return clientOpt.map(client -> {
+            System.out.println(ConsoleColors.GREEN + "Client trouvé !" + ConsoleColors.RESET);
+            System.out.println("Nom : " + client.getName());
+            System.out.println("Adresse : " + client.getAddress());
+            System.out.println("Numéro de téléphone : " + client.getPhoneNumber());
 
-                boolean continuer = InputValidator.getValidYesNo("Souhaitez-vous continuer avec ce client ?");
-
-                if (continuer) {
-                    return client;
-                }
-
-            } else {
-                System.out.println(ConsoleColors.RED + "Client non trouvé." + ConsoleColors.RESET);
-                System.out.println("-------------------------------");
-                return rechercherOuAjouterClient();
-            }
-            return null;
-        }
+            boolean continuer = InputValidator.getValidYesNo("Souhaitez-vous continuer avec ce client ?");
+            return continuer ? client : null;
+        }).orElseGet(() -> {
+            System.out.println(ConsoleColors.RED + "Client non trouvé." + ConsoleColors.RESET);
+            logger.warn("Client non trouvé: {}", nom);
+            return rechercherOuAjouterClient(); // Recursively call the method
+        });
+    }
 
     private Client ajouterNouveauClient() {
         Scanner scanner = new Scanner(System.in);
         String nom;
         System.out.println("--- Ajouter un nouveau client ---");
+
         do {
             System.out.print("Entrez le nom du client : ");
-             nom = scanner.nextLine();
+            nom = scanner.nextLine();
             if (!clientService.isClientNameUnique(nom)) {
                 System.out.println("Ce nom de client existe déjà. Veuillez en choisir un autre.");
             }
@@ -87,17 +75,11 @@ public class ClientUI {
         boolean isProfessional = InputValidator.getValidYesNo("Le client est-il un professionnel ?");
 
         Client client = new Client(nom, adresse, telephone, isProfessional);
-
         clientService.addClient(client);
 
         System.out.println("Client ajouté avec succès !");
         boolean continuer = InputValidator.getValidYesNo("Souhaitez-vous continuer avec ce client ?");
 
-        if (continuer) {
-            return client;
-        }
-        return null;
+        return continuer ? client : null;
     }
-
-
 }

@@ -2,9 +2,11 @@ package org.baticuisine.repository;
 
 import org.baticuisine.entities.Client;
 
+import java.util.Optional;
+
 public interface ClientRepository {
     void addClient(Client client);
-    Client getClientById(int clientId);
-    Client searchClientByName(String name);
+    Optional<Client> getClientById(int clientId);
+    Optional<Client> searchClientByName(String name);
     boolean isClientNameUnique(String name);
 }
