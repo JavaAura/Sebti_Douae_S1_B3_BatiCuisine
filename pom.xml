@@ -42,17 +42,17 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.36</version> <!-- Downgrade this to match Logback version -->
+            <version>1.7.36</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.4.14</version> <!-- Logback-core for logging -->
+            <version>1.2.12</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.4.12</version> <!-- Logback-classic for SLF4J binding -->
+            <version>1.2.12</version>
             <scope>runtime</scope>
         </dependency>
     </dependencies>
