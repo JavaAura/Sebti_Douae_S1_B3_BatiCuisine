@@ -1,0 +1,9 @@
+2024-09-23 16:58:36 INFO  o.b.r.ProjectRepositoryImpl - Project added with ID: 60
+2024-09-23 16:58:36 INFO  o.b.serviceImpl.ProjectServiceImpl - Project added: dd
+2024-09-23 16:58:42 INFO  o.b.r.MaterialRepositoryImpl - Inserted Material with ID: 100
+2024-09-23 16:58:57 INFO  o.b.r.LaborRepositoryImpl - Inserted Labor with ID: 101
+2024-09-23 16:59:05 INFO  o.b.serviceImpl.ProjectServiceImpl - Applying tax and profit margin for project: dd
+2024-09-23 16:59:05 INFO  o.b.r.MaterialRepositoryImpl - Updated tax rate for Material ID: 100
+2024-09-23 16:59:05 INFO  o.b.r.LaborRepositoryImpl - Updated tax rate for Labor ID: 101
+2024-09-23 16:59:05 INFO  o.b.r.ProjectRepositoryImpl - Project with ID 60 updated successfully.
+2024-09-23 16:59:05 INFO  o.b.serviceImpl.ProjectServiceImpl - Updated project with ID 60: Profit Margin = 20.0, Total Cost = 2511.6
