@@ -168,7 +168,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     @Override
-    public Project getProjectById(int projectId) {
+    public Project getProjectById(String projectName) {
         String sql = "SELECT \n" +
                 "    p.id AS project_id, \n" +
                 "    p.project_name, \n" +
@@ -195,7 +195,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                 "    client c ON p.client_id = c.id\n" +
                 "LEFT JOIN \n" +
                 "    material m ON p.id = m.project_id\n" +
-                "WHERE p.id = ?\n" +
+                "WHERE p.project_name = ?\n" +
                 "\n" +
                 "UNION ALL\n" +
                 "\n" +
@@ -225,13 +225,13 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                 "    client c ON p.client_id = c.id\n" +
                 "LEFT JOIN \n" +
                 "    labor l ON p.id = l.project_id\n" +
-                "WHERE p.id = ?;\n";
+                "WHERE p.project_name = ?;\n";
 
         Project project = null;
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, projectId);
-            pstmt.setInt(2, projectId);
+            pstmt.setString(1, projectName);
+            pstmt.setString(2, projectName);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -283,7 +283,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                 }
             }
         } catch (SQLException e) {
-            logger.error("Error fetching project by ID: {}", e.getMessage());
+            logger.error("Error fetching project by name: {}", e.getMessage());
         }
 
         return project;

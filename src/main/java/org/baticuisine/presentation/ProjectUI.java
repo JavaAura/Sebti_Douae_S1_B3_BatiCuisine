@@ -166,8 +166,8 @@ public class ProjectUI {
         System.out.println("-------------------------------");
     }
 
-    public void projectTotalCost(int id) {
-        Optional<Project> projectOpt = Optional.ofNullable(projectService.getProjectById(id));
+    public void projectTotalCost(String name) {
+        Optional<Project> projectOpt = Optional.ofNullable(projectService.getProjectById(name));
         if (projectOpt.isPresent()) {
             displayProjectCostDetails(projectOpt.get());
         } else {

@@ -5,6 +5,7 @@ import org.baticuisine.util.InputValidator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ConsoleUI {
 
@@ -73,8 +74,10 @@ public class ConsoleUI {
     }
 
     private void calculerCoutProjet() {
-        System.out.println("Entrer l'id du projet que vous voulez calculer le coût total");
-        int id = InputValidator.getValidInt("");
-        projectUI.projectTotalCost(id);
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Entrer le nom du projet que vous voulez calculer le coût total");
+       // int id = InputValidator.getValidInt("");
+        String name = sc.nextLine();
+        projectUI.projectTotalCost(name);
     }
 }

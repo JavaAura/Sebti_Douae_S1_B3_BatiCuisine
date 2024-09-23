@@ -10,7 +10,7 @@ public interface ProjectRepository {
 
     List<Project> getAllProjects();
 
-    Project getProjectById(int projectId);
+    Project getProjectById(String projectName);
 
     void updateProjectProfitMarginAndTotalCost(int projectId, double profitMargin, double totalCost);
 }
