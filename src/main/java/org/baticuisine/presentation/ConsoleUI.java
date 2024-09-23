@@ -1,10 +1,10 @@
 package org.baticuisine.presentation;
 
 import org.baticuisine.entities.*;
+import org.baticuisine.util.InputValidator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class ConsoleUI {
 
@@ -14,7 +14,6 @@ public class ConsoleUI {
     private LaborUI laborUI = new LaborUI();
 
     public void start() {
-        Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
         System.out.println("=== Bienvenue dans l'application de gestion des projets de rénovation de cuisines ===");
@@ -25,9 +24,9 @@ public class ConsoleUI {
             System.out.println("2. Afficher les projets existants");
             System.out.println("3. Calculer le coût d'un projet");
             System.out.println("4. Quitter");
-            System.out.print("Choisissez une option : ");
-            int choix = scanner.nextInt();
-            scanner.nextLine();
+            //System.out.print("Choisissez une option : ");
+            int choix = InputValidator.getValidInt("Choisissez une option :");
+
             switch (choix) {
                 case 1:
                     creerNouveauProjet();
@@ -48,7 +47,6 @@ public class ConsoleUI {
     }
 
     private void creerNouveauProjet() {
-
         Client client = clientUI.rechercherOuAjouterClient();
 
         if (client != null) {
@@ -63,24 +61,20 @@ public class ConsoleUI {
 
             projet.setComponents(allComponents);
 
-
             System.out.println("Projet créé avec succès !");
             projectUI.calculerCoutTotalProjet(projet);
-
         } else {
             System.out.println("Échec de la création du projet.");
         }
     }
-
 
     private void afficherProjetsExistants() {
         projectUI.displayAllProjects();
     }
 
     private void calculerCoutProjet() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Entrer l'id du projet que vous voulez calculer le cout total");
-        int id = scanner.nextInt();
+        System.out.println("Entrer l'id du projet que vous voulez calculer le coût total");
+        int id = InputValidator.getValidInt("");
         projectUI.projectTotalCost(id);
     }
 }

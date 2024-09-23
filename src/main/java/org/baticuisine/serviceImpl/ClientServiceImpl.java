@@ -48,9 +48,8 @@ public class ClientServiceImpl implements ClientService {
     public Optional<Client> searchClientByName(String name) {
         try {
             Optional<Client> client = clientRepository.searchClientByName(name);
-            if (client.isPresent()) {
-                logger.info("Client found with name: {}", name);
-            } else {
+            if (!client.isPresent())
+            {
                 logger.warn("No client found with name: {}", name);
             }
             return client;
