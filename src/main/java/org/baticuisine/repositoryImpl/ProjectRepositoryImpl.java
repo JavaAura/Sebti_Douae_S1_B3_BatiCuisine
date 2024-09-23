@@ -4,6 +4,8 @@ import org.baticuisine.Status;
 import org.baticuisine.database.DatabaseConnection;
 import org.baticuisine.entities.*;
 import org.baticuisine.repository.ProjectRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ProjectRepositoryImpl implements ProjectRepository {
+    private static final Logger logger = LoggerFactory.getLogger(ProjectRepositoryImpl.class);
     private Connection conn;
 
     public ProjectRepositoryImpl() {
@@ -33,14 +36,14 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                 try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         project.setId(generatedKeys.getInt(1));
+                        logger.info("Project added with ID: {}", project.getId());
                     }
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("Error adding project: {}", e.getMessage());
         }
     }
-
 
     @Override
     public List<Project> getAllProjects() {
@@ -109,7 +112,6 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                 int projectId = rs.getInt("project_id");
                 Project project = projectMap.get(projectId);
                 if (project == null) {
-
                     project = new Project();
                     project.setId(projectId);
                     project.setProjectName(rs.getString("project_name"));
@@ -159,7 +161,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error fetching projects: " + e.getMessage());
+            logger.error("Error fetching projects: {}", e.getMessage());
         }
 
         return new ArrayList<>(projectMap.values());
@@ -281,7 +283,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error fetching project by ID: " + e.getMessage());
+            logger.error("Error fetching project by ID: {}", e.getMessage());
         }
 
         return project;
@@ -289,19 +291,19 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
     @Override
     public void updateProjectProfitMarginAndTotalCost(int projectId, double profitMargin, double totalCost) {
-        String sql = "UPDATE Project SET profit_margin = ?, total_cost = ? WHERE id = ?";
+        String sql = "UPDATE project SET profit_margin = ?, total_cost = ? WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setDouble(1, profitMargin);
             stmt.setDouble(2, totalCost);
             stmt.setInt(3, projectId);
-            stmt.executeUpdate();
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows > 0) {
+                logger.info("Project with ID {} updated successfully.", projectId);
+            } else {
+                logger.warn("No project found with ID {}.", projectId);
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error updating project: {}", e.getMessage());
         }
     }
-
-
 }
-
-
-

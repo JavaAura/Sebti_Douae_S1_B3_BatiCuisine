@@ -50,7 +50,7 @@ public class ClientUI {
         }).orElseGet(() -> {
             System.out.println(ConsoleColors.RED + "Client non trouvé." + ConsoleColors.RESET);
             logger.warn("Client non trouvé: {}", nom);
-            return rechercherOuAjouterClient(); // Recursively call the method
+            return rechercherOuAjouterClient();
         });
     }
 
