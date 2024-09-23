@@ -73,8 +73,12 @@ public class ClientUI {
         String telephone = scanner.nextLine();
 
         boolean isProfessional = InputValidator.getValidYesNo("Le client est-il un professionnel ?");
-
-        Client client = new Client(nom, adresse, telephone, isProfessional);
+        double discount = 0;
+        if (isProfessional) {
+            System.out.print("Entrez le montant de la remise en % : ");
+            discount = scanner.nextDouble();
+        }
+        Client client = new Client(nom, adresse, telephone, isProfessional, discount);
         clientService.addClient(client);
 
         System.out.println("Client ajouté avec succès !");

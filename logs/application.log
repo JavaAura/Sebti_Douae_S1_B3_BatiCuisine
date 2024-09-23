@@ -9,3 +9,18 @@
 2024-09-23 16:59:05 INFO  o.b.serviceImpl.ProjectServiceImpl - Updated project with ID 60: Profit Margin = 20.0, Total Cost = 2511.6
 2024-09-23 19:10:01 INFO  o.b.r.ProjectRepositoryImpl - Project added with ID: 62
 2024-09-23 19:10:01 INFO  o.b.serviceImpl.ProjectServiceImpl - Project added: fd
+2024-09-23 19:52:41 INFO  o.b.r.ProjectRepositoryImpl - Project added with ID: 63
+2024-09-23 19:52:41 INFO  o.b.serviceImpl.ProjectServiceImpl - Project added: okay
+2024-09-23 19:57:43 INFO  o.b.serviceImpl.ClientServiceImpl - Client name 'rem' is unique
+2024-09-23 19:57:43 INFO  o.b.serviceImpl.ClientServiceImpl - Client name 'rem' is unique
+2024-09-23 19:57:54 INFO  o.b.serviceImpl.ClientServiceImpl - Client added successfully: rem
+2024-09-23 19:58:00 INFO  o.b.r.ProjectRepositoryImpl - Project added with ID: 64
+2024-09-23 19:58:00 INFO  o.b.serviceImpl.ProjectServiceImpl - Project added: remm
+2024-09-23 19:58:07 INFO  o.b.r.MaterialRepositoryImpl - Inserted Material with ID: 104
+2024-09-23 19:58:15 INFO  o.b.r.LaborRepositoryImpl - Inserted Labor with ID: 105
+2024-09-23 19:58:24 INFO  o.b.serviceImpl.ProjectServiceImpl - Applying tax and profit margin for project: remm
+2024-09-23 19:58:24 INFO  o.b.r.MaterialRepositoryImpl - Updated tax rate for Material ID: 104
+2024-09-23 19:58:24 INFO  o.b.r.LaborRepositoryImpl - Updated tax rate for Labor ID: 105
+2024-09-23 19:58:24 INFO  o.b.r.ProjectRepositoryImpl - Project with ID 64 updated successfully.
+2024-09-23 19:58:24 INFO  o.b.serviceImpl.ProjectServiceImpl - Updated project with ID 64: Profit Margin = 15.0, Total Cost = 1653.0
+2024-09-23 20:17:12 ERROR o.b.r.ProjectRepositoryImpl - Error fetching project by name: Cannot cast to boolean: "20.00"

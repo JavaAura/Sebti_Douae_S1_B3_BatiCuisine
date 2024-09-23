@@ -69,3 +69,5 @@ ALTER TABLE labor
 ADD CONSTRAINT fk_project
 FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE;
 
+ALTER TABLE client
+ADD discount DECIMAL(5, 2) DEFAULT 0;

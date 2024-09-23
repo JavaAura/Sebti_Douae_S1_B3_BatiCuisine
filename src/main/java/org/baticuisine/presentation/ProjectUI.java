@@ -88,13 +88,23 @@ public class ProjectUI {
         double totalCostBeforeMargin = totalMaterialCostAfterTax + totalLaborCostAfterTax;
         System.out.printf("Coût total avant marge : %.2f €%n", totalCostBeforeMargin);
 
+        double totalCostAfterMargin = totalCostBeforeMargin;
+        double marginAmount = 0;
         if (project.getProfitMargin() > 0) {
-            double marginAmount = totalCostBeforeMargin * (project.getProfitMargin() / 100);
-            double totalCostAfterMargin = totalCostBeforeMargin + marginAmount;
+            marginAmount = totalCostBeforeMargin * (project.getProfitMargin() / 100);
+            totalCostAfterMargin += marginAmount;
             System.out.printf("Marge bénéficiaire (%.2f%%) : %.2f €%n", project.getProfitMargin(), marginAmount);
-            System.out.printf("Coût total final du projet : %.2f €%n", totalCostAfterMargin);
+        }
+
+        if (client != null && client.getProfessional()) {
+            double discountPercentage = client.getDiscount();
+            double discountAmount = totalCostAfterMargin * (discountPercentage / 100);
+            System.out.printf("Coût total après marge : %.2f €%n", totalCostAfterMargin);
+            System.out.printf("Remise appliquée pour le client professionnel (%.2f%%) : %.2f €%n", discountPercentage, discountAmount);
+            double finalCostWithDiscount = totalCostAfterMargin - discountAmount;
+            System.out.printf("Coût total final du projet après remise : %.2f €%n", finalCostWithDiscount);
         } else {
-            System.out.printf("Coût total final du projet : %.2f €%n", totalCostBeforeMargin);
+            System.out.printf("Coût total final du projet : %.2f €%n", totalCostAfterMargin);
         }
     }
 

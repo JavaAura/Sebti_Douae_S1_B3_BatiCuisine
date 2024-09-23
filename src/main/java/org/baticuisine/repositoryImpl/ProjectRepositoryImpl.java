@@ -58,6 +58,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                 "    c.address AS client_address, \n" +
                 "    c.phone_number AS client_phone_number, \n" +
                 "    c.is_professional AS client_isProfessional, \n" +
+                "    c.discount AS client_discount, \n" +
                 "    'Material' AS component_type, \n" +
                 "    m.id AS component_id, \n" +
                 "    m.name AS component_name, \n" +
@@ -87,6 +88,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                 "    c.address AS client_address, \n" +
                 "    c.phone_number AS client_phone_number, \n" +
                 "    c.is_professional AS client_isProfessional, \n" +
+                "    c.discount AS client_discount, \n" +
                 "    'Labor' AS component_type, \n" +
                 "    l.id AS component_id, \n" +
                 "    l.name AS component_name, \n" +
@@ -125,6 +127,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                     client.setAddress(rs.getString("client_address"));
                     client.setPhoneNumber(rs.getString("client_phone_number"));
                     client.setProfessional(rs.getBoolean("client_isProfessional"));
+                    client.setDiscount(rs.getDouble("client_discount"));
                     project.setClient(client);
 
                     projectMap.put(projectId, project);
@@ -180,6 +183,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                 "    c.address AS client_address, \n" +
                 "    c.phone_number AS client_phone_number, \n" +
                 "    c.is_professional AS client_isProfessional, \n" +
+                "    c.discount AS client_discount, \n" +
                 "    'Material' AS component_type, \n" +
                 "    m.id AS component_id, \n" +
                 "    m.name AS component_name, \n" +
@@ -210,6 +214,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                 "    c.address AS client_address, \n" +
                 "    c.phone_number AS client_phone_number, \n" +
                 "    c.is_professional AS client_isProfessional, \n" +
+                "    c.discount AS client_discount, \n" +
                 "    'Labor' AS component_type, \n" +
                 "    l.id AS component_id, \n" +
                 "    l.name AS component_name, \n" +
@@ -249,6 +254,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                     client.setAddress(rs.getString("client_address"));
                     client.setPhoneNumber(rs.getString("client_phone_number"));
                     client.setProfessional(rs.getBoolean("client_isProfessional"));
+                    client.setDiscount(rs.getDouble("client_discount"));
                     project.setClient(client);
                 }
 

@@ -1,9 +1,6 @@
 package org.baticuisine.serviceImpl;
 
-import org.baticuisine.entities.Component;
-import org.baticuisine.entities.Labor;
-import org.baticuisine.entities.Material;
-import org.baticuisine.entities.Project;
+import org.baticuisine.entities.*;
 import org.baticuisine.repository.ProjectRepository;
 import org.baticuisine.repositoryImpl.LaborRepositoryImpl;
 import org.baticuisine.repositoryImpl.MaterialRepositoryImpl;
@@ -72,13 +69,20 @@ public class ProjectServiceImpl implements ProjectService {
                 .sum();
 
         double totalCostBeforeMargin = totalMaterialCostAfterTax + totalLaborCostAfterTax;
+
         double marginAmount = totalCostBeforeMargin * (profitMargin / 100);
         double totalCostAfterMargin = totalCostBeforeMargin + marginAmount;
 
-        project.setProfitMargin(profitMargin);
-        project.setTotalCost(totalCostAfterMargin);
+        Client client = project.getClient();
+        double discountPercentage = (client != null && client.getProfessional()) ? client.getDiscount() : 0;
+        double discountAmount = totalCostBeforeMargin * (discountPercentage / 100);
 
-        projectRepository.updateProjectProfitMarginAndTotalCost(project.getId(), profitMargin, totalCostAfterMargin);
-        logger.info("Updated project with ID {}: Profit Margin = {}, Total Cost = {}", project.getId(), profitMargin, totalCostAfterMargin);
+        double totalCostAfterDiscount = totalCostAfterMargin - discountAmount;
+
+        project.setProfitMargin(profitMargin);
+        project.setTotalCost(totalCostAfterDiscount);
+
+        projectRepository.updateProjectProfitMarginAndTotalCost(project.getId(), profitMargin, totalCostAfterDiscount);
+        logger.info("Updated project with ID {}: Profit Margin = {}, Total Cost = {}", project.getId(), profitMargin, totalCostAfterDiscount);
     }
 }

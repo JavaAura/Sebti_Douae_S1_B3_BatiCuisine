@@ -9,18 +9,27 @@ public class Client {
     private String phoneNumber;
     private Boolean isProfessional;
     private List<Project> projects;
+    private double discount;
 
     public Client() {
     }
 
-    public Client( String name, String address, String phoneNumber, Boolean isProfessional) {
-        //this.id = id;
+    public Client(String name, String address, String phoneNumber, Boolean isProfessional, double discount) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.isProfessional = isProfessional;
+        this.discount = discount;
     }
 
+    // Getter and Setter for discount
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
 
     public int getId() {
         return id;

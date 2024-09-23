@@ -23,13 +23,14 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     @Override
     public void addClient(Client client) {
-        String sql = "INSERT INTO client (name, address, phone_number, is_professional) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO client (name, address, phone_number, is_professional, discount) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, client.getName());
             pstmt.setString(2, client.getAddress());
             pstmt.setString(3, client.getPhoneNumber());
             pstmt.setBoolean(4, client.getProfessional());
+            pstmt.setDouble(5, client.getDiscount());
             int affectedRows = pstmt.executeUpdate();
 
             if (affectedRows > 0) {
@@ -59,6 +60,7 @@ public class ClientRepositoryImpl implements ClientRepository {
                 client.setAddress(rs.getString("address"));
                 client.setPhoneNumber(rs.getString("phone_number"));
                 client.setProfessional(rs.getBoolean("is_professional"));
+                client.setDiscount(rs.getDouble("discount"));
             }
         } catch (SQLException e) {
             LOGGER.error("Error retrieving client by ID: {}", e.getMessage(), e);
@@ -83,6 +85,7 @@ public class ClientRepositoryImpl implements ClientRepository {
                 client.setAddress(rs.getString("address"));
                 client.setPhoneNumber(rs.getString("phone_number"));
                 client.setProfessional(rs.getBoolean("is_professional"));
+                client.setDiscount(rs.getDouble("discount"));
             }
         } catch (SQLException e) {
             LOGGER.error("Error searching client by name: {}", e.getMessage(), e);
