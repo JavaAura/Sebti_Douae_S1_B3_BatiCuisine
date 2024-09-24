@@ -1,23 +1,33 @@
 package org.baticuisine.database;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DatabaseConnection {
 
     private static DatabaseConnection instance;
     private Connection connection;
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/baticuisine";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "password";
 
     private DatabaseConnection() {
-        try {
+        Properties properties = new Properties();
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("application.properties")) {
+            if (input == null) {
+                throw new RuntimeException("Sorry, unable to find config.properties");
+            }
+            properties.load(input);
+            String URL = properties.getProperty("db.url");
+            String USER = properties.getProperty("db.username");
+            String PASSWORD = properties.getProperty("db.password");
+
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (IOException | SQLException ex) {
+            ex.printStackTrace();
+            throw new RuntimeException("Failed to connect to the database");
         }
     }
 
