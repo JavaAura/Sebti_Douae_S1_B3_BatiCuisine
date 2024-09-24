@@ -1,5 +1,5 @@
 # BatiCuisine
-
+Application Java destinée aux professionnels de la construction et de la rénovation de cuisines.
 ## Description
 
 BatiCuisine est une application de gestion de projets de construction.
