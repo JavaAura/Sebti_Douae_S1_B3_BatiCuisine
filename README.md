@@ -47,8 +47,7 @@ CREATE DATABASE baticuisine;
 
 Exécutez le script SQL situé dans le dossier /database pour créer les tables nécessaires.
 
-Modifiez le fichier /database/DatabaseConnection pour configurer l'accès à la base de données :
-
+Créer un fichier application.properties dans votre package resources et modifier ces propriétés :
 
 jdbc.url=jdbc:postgresql://localhost:5432/baticuisine
 jdbc.username=VotreNomUtilisateur
@@ -72,12 +71,12 @@ java -jar target/BatiCuisine-1.0-SNAPSHOT.jar
 ## Utilisation
 
 ### 1. Lancement de l'application
-Après avoir démarré l'application, vous serez invité à choisir parmi plusieurs options pour gérer les clients, les projets et les devis. Voici un exemple d'interaction :
+Après avoir démarré l'application, vous serez invité à choisir parmi plusieurs options. Voici un exemple d'interaction :
 
---- Menu Principal ---
-1. Gérer les Clients
-2. Gérer les Projets
-3. Gérer les Devis
+=== Menu Principal ===
+1. Créer un nouveau projet
+2. Afficher les projets existants
+3. Calculer le coût d'un projet
 4. Quitter
 
 Choisissez une option : 1
@@ -87,21 +86,20 @@ Vous pouvez rechercher un client existant ou ajouter un nouveau client :
 Chercher un client existant : Entrez le nom du client et affichez ses informations.
 Ajouter un nouveau client : Entrez les informations du nouveau client (nom, adresse, téléphone, professionnel ou non).
 ### 3. Gestion des Projets
-Chaque projet est lié à un client. Lors de la création d'un projet, vous devrez attribuer un client à ce projet. Vous pouvez également afficher et mettre à jour les projets existants.
+Chaque projet est lié à un client. Lors de la création d'un projet, vous devrez attribuer un client à ce projet. Vous pouvez également afficher les projets existants.
 
 ### 4. Gestion des Devis
-Pour chaque projet, vous pouvez générer un devis avec les informations suivantes :
+Pour chaque projet, vous pouvez ajouter les informations du devis avec les informations suivantes :
 
 Montant estimé
 Date d'émission
 Date de validité
-Vous pouvez aussi choisir d'accepter ou non un devis avant de l'enregistrer.
 
 ## Structure du Projet
 Le projet est structuré selon une architecture MVC :
 
-src/main/java/org/baticuisine/entities : Contient les entités principales (Client, Project, Quote).
-src/main/java/org/baticuisine/serviceImpl : Implémentation des services (gestion des clients, des projets, des devis).
+src/main/java/org/baticuisine/entities : Contient les entités principales (Client, Project, Component, Material, Labor, Quote).
+src/main/java/org/baticuisine/serviceImpl : Implémentation des services (client, composants, projet et devis).
 src/main/java/org/baticuisine/repositoryImpl : Implémentation des interfaces du repository pour la gestion des accès à la base de données.
 src/main/java/org/baticuisine/presentation : Interface utilisateur pour interagir avec le système via la console.
 
