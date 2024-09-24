@@ -24,3 +24,16 @@
 2024-09-23 19:58:24 INFO  o.b.r.ProjectRepositoryImpl - Project with ID 64 updated successfully.
 2024-09-23 19:58:24 INFO  o.b.serviceImpl.ProjectServiceImpl - Updated project with ID 64: Profit Margin = 15.0, Total Cost = 1653.0
 2024-09-23 20:17:12 ERROR o.b.r.ProjectRepositoryImpl - Error fetching project by name: Cannot cast to boolean: "20.00"
+2024-09-24 13:45:28 INFO  o.b.r.ProjectRepositoryImpl - Project added with ID: 66
+2024-09-24 13:45:28 INFO  o.b.serviceImpl.ProjectServiceImpl - Project added: ff
+2024-09-24 13:45:33 INFO  o.b.r.MaterialRepositoryImpl - Inserted Material with ID: 107
+2024-09-24 13:45:52 INFO  o.b.r.MaterialRepositoryImpl - Inserted Material with ID: 108
+2024-09-24 13:45:56 INFO  o.b.r.LaborRepositoryImpl - Inserted Labor with ID: 109
+2024-09-24 14:51:52 INFO  o.b.r.ProjectRepositoryImpl - Project added with ID: 70
+2024-09-24 14:51:52 INFO  o.b.serviceImpl.ProjectServiceImpl - Project added: yeeeeeeeeeeeeeeeeeeeeeeeee
+2024-09-24 14:51:56 INFO  o.b.r.MaterialRepositoryImpl - Inserted Material with ID: 117
+2024-09-24 14:52:02 INFO  o.b.r.LaborRepositoryImpl - Inserted Labor with ID: 118
+2024-09-24 14:52:27 INFO  o.b.r.ProjectRepositoryImpl - Project added with ID: 71
+2024-09-24 14:52:27 INFO  o.b.serviceImpl.ProjectServiceImpl - Project added: whaaaaaaaaat
+2024-09-24 14:52:31 INFO  o.b.r.MaterialRepositoryImpl - Inserted Material with ID: 119
+2024-09-24 14:52:36 INFO  o.b.r.LaborRepositoryImpl - Inserted Labor with ID: 120
