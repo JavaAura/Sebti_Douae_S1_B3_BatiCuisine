@@ -3,15 +3,15 @@
 ## Description
 
 BatiCuisine est une application de gestion de projets de construction.
-Cette application permet de gérer les clients, les projets, les devis 
-ainsi que les coûts estimés des projets. Elle est conçue pour faciliter le suivi des projets 
+Cette application permet de calculer le coût total des travaux en tenant compte des matériaux utilisés et du coût de la main-d'œuvre.
+Elle est conçue pour faciliter le suivi des projets 
 de construction pour des clients professionnels et particuliers.
 
 ## Fonctionnalités
 
 - Gestion des clients : ajouter, rechercher et afficher les informations des clients.
 - Gestion des projets : création, suivi, et gestion des projets.
-- Gestion des devis : génération de devis avec un montant estimé, une date d'émission et une date de validité.
+- Gestion des devis : création de devis avec un montant estimé, une date d'émission et une date de validité.
 - Gestion des professionnels et des particuliers : support pour les deux types de clients.
 - Génération et sauvegarde des devis pour chaque projet.
 
@@ -22,6 +22,7 @@ de construction pour des clients professionnels et particuliers.
 - **PostgreSQL** : Base de données relationnelle pour stocker les clients, projets et devis.
 - **JDBC** : Interface pour la connexion à la base de données PostgreSQL.
 - **IntelliJ IDEA** : Environnement de développement intégré (IDE).
+- **Design Patterns**: Repository, Singleton
 
 ## Prérequis
 
@@ -112,5 +113,19 @@ Committez vos modifications (git commit -m 'Ajout d'une nouvelle fonctionnalité
 Poussez sur la branche (git push origin nouvelle-fonctionnalité).
 Créez une Pull Request.
 
-## Auteur
+## Auteur et contact
 Douae Sebti - Développeur Java
+
+**Auteur**: [Douae Sebti]
+
+**Contact**: [douaesebti33@gmail.com]
+
+### Conception du projet (Diagramme UML)
+
+- Vous trouverez un fichier format pdf nommer BatiCuisineDiagramClass.pdf
+
+- **Diagramme des classes** Vous pouvez mieux comprendre l'architecture de ce projet.
+
+### Lien du JIRA pour poursuivre les etapes de réalisation et gestion du projet
+
+https://douaesb411.atlassian.net/jira/software/projects/BC/boards/7?atlOrigin=eyJpIjoiZjEwOTdkMjUyM2Y5NGRmYzhkMTA5YzFhN2E1MjhlMDciLCJwIjoiaiJ9
