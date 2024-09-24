@@ -10,7 +10,7 @@ public interface ProjectService {
 
     List<Project> getAllProjects();
 
-    Project getProjectById(String projectName);
+    Project getProjectByName(String projectName);
 
     void applyTaxAndProfitMargin(Project project, double taxRate, double profitMargin);
 

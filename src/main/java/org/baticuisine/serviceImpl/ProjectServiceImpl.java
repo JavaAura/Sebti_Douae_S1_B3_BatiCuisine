@@ -36,8 +36,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project getProjectById(String projectName) {
-        return projectRepository.getProjectById(projectName);
+    public Project getProjectByName(String projectName) {
+        return projectRepository.getProjectByName(projectName);
     }
 
     @Override

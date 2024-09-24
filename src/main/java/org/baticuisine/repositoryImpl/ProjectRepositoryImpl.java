@@ -171,7 +171,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     @Override
-    public Project getProjectById(String projectName) {
+    public Project getProjectByName(String projectName) {
         String sql = "SELECT \n" +
                 "    p.id AS project_id, \n" +
                 "    p.project_name, \n" +
